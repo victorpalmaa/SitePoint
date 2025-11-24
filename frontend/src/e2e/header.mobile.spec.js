@@ -7,8 +7,7 @@ test.describe('Header e Carrinho - Mobile', () => {
     await page.getByRole('button', { name: /Itens/i }).click();
     const sidebar = page.locator('div[class*="max-w-md"][class*="right-0"][class*="top-0"]');
     await expect(sidebar).toBeVisible();
-
-    await page.locator('div[class*="bg-black/40"]').click({ force: true });
+    await page.getByRole('button', { name: 'Close' }).click();
     await expect(sidebar).toHaveClass(/translate-x-full/);
   });
 
