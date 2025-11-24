@@ -175,14 +175,14 @@ const ProductDetailPage = () => {
       <main className={`mx-auto max-w-5xl ${product.id === 3 ? 'px-5 py-3' : 'px-6 py-4'}`}>
         <div className={`grid grid-cols-1 lg:grid-cols-2 ${product.id === 3 ? 'gap-6' : 'gap-8'}`}>
           {/* Product Images */}
-          <div className="space-y-6" ref={leftColRef} style={product.id === 3 && matchedHeight ? { height: matchedHeight } : undefined}>
+          <div className="space-y-6 flex flex-col" ref={leftColRef} style={product.id === 3 && matchedHeight ? { height: matchedHeight } : undefined}>
             <Card className="group overflow-hidden shadow-2xl">
               <div className={`relative w-full ${product.id === 3 ? 'h-72 lg:h-[420px]' : 'h-96 lg:h-[520px]'} transition-transform duration-700 ease-out group-hover:scale-[1.02]`}>
                 {prevImageIndex !== null && (
                   <img
                     src={productImages[prevImageIndex]}
                     alt={`${product.name} anterior`}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity transition-transform duration-300 ease-out ${fadePrev ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-out ${fadePrev ? 'opacity-100' : 'opacity-0'}`}
                   />
                 )}
                 <img
@@ -190,14 +190,14 @@ const ProductDetailPage = () => {
                   src={productImages[selectedImageIndex]}
                   alt={product.name}
                   onLoad={() => setImageLoaded(true)}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 ease-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                   key={selectedImageIndex}
                 />
               </div>
             </Card>
             
           {/* Additional Images */}
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-3 mt-auto">
             {productImages.map((img, index) => (
               <Card 
                 key={index} 
