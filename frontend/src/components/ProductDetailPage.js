@@ -26,6 +26,10 @@ const ProductDetailPage = () => {
   const mainImageRef = useRef(null);
   const [prevImageIndex, setPrevImageIndex] = useState(null);
   const [fadePrev, setFadePrev] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(true);
+  const leftColRef = useRef(null);
+  const rightColRef = useRef(null);
+  const [matchedHeight, setMatchedHeight] = useState(null);
 
   useEffect(() => {
     if (detailsOpen) {
@@ -35,6 +39,8 @@ const ProductDetailPage = () => {
       setDetailsVisible(false);
     }
   }, [detailsOpen]);
+
+  // moved height matching effect below product definition to avoid TDZ
 
   const product = mockData.products.find(p => p.id === parseInt(id));
 
@@ -77,6 +83,20 @@ const ProductDetailPage = () => {
   const productImages = product.additionalImages || [product.image, product.image, product.image];
   const sizeGuideImage = product.sizeGuideImage || null;
 
+  useEffect(() => {
+    if (product && product.id === 3) {
+      const updateHeights = () => {
+        const r = rightColRef.current;
+        if (r) {
+          setMatchedHeight(r.offsetHeight);
+        }
+      };
+      updateHeights();
+      window.addEventListener("resize", updateHeights);
+      return () => window.removeEventListener("resize", updateHeights);
+    }
+  }, [product, selectedImageIndex, quantity, selectedSize, detailsOpen, sizeGuideOpen]);
+
   const switchImage = (index) => {
     if (index === selectedImageIndex) return;
     setPrevImageIndex(selectedImageIndex);
@@ -84,6 +104,7 @@ const ProductDetailPage = () => {
     setFadePrev(true);
     requestAnimationFrame(() => setFadePrev(false));
     setIsSwitchingImage(true);
+    setImageLoaded(false);
     setTimeout(() => {
       setPrevImageIndex(null);
       setIsSwitchingImage(false);
@@ -154,7 +175,7 @@ const ProductDetailPage = () => {
       <main className={`mx-auto max-w-5xl ${product.id === 3 ? 'px-5 py-3' : 'px-6 py-4'}`}>
         <div className={`grid grid-cols-1 lg:grid-cols-2 ${product.id === 3 ? 'gap-6' : 'gap-8'}`}>
           {/* Product Images */}
-          <div className="space-y-6">
+          <div className="space-y-6" ref={leftColRef} style={product.id === 3 && matchedHeight ? { height: matchedHeight } : undefined}>
             <Card className="group overflow-hidden shadow-2xl">
               <div className={`relative w-full ${product.id === 3 ? 'h-72 lg:h-[420px]' : 'h-96 lg:h-[520px]'} transition-transform duration-700 ease-out group-hover:scale-[1.02]`}>
                 {prevImageIndex !== null && (
@@ -168,7 +189,8 @@ const ProductDetailPage = () => {
                   ref={mainImageRef}
                   src={productImages[selectedImageIndex]}
                   alt={product.name}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-out opacity-100`}
+                  onLoad={() => setImageLoaded(true)}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 ease-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                   key={selectedImageIndex}
                 />
               </div>
@@ -192,7 +214,7 @@ const ProductDetailPage = () => {
           </div>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-8" ref={rightColRef}>
             <div>
               <h1 className={`${product.id === 3 ? 'text-3xl' : 'text-4xl'} font-bold text-slate-900 mb-4 tracking-tight`}>
                 {product.name}
