@@ -156,19 +156,19 @@ const ProductDetailPage = () => {
           {/* Product Images */}
           <div className="space-y-6">
             <Card className="group overflow-hidden shadow-2xl">
-              <div className="relative w-full h-96 lg:h-[520px] transition-transform duration-700 ease-out group-hover:scale-[1.02]">
+              <div className={`relative w-full ${product.id === 3 ? 'h-80 lg:h-[460px]' : 'h-96 lg:h-[520px]'} transition-transform duration-700 ease-out group-hover:scale-[1.02]`}>
                 {prevImageIndex !== null && (
                   <img
                     src={productImages[prevImageIndex]}
                     alt={`${product.name} anterior`}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-250 ease-out ${fadePrev ? 'opacity-100' : 'opacity-0'}`}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-out ${fadePrev ? 'opacity-100' : 'opacity-0'}`}
                   />
                 )}
                 <img
                   ref={mainImageRef}
                   src={productImages[selectedImageIndex]}
                   alt={product.name}
-                  className={`absolute inset-0 w-full h-full object-cover transition-transform transition-opacity duration-250 ease-out ${isSwitchingImage ? 'opacity-100 scale-[1.01]' : 'opacity-100 scale-100'}`}
+                  className={`absolute inset-0 w-full h-full object-cover transition-transform transition-opacity duration-300 ease-out ${isSwitchingImage ? 'animate-in fade-in zoom-in-50' : 'opacity-100'} `}
                   key={selectedImageIndex}
                 />
               </div>
@@ -185,7 +185,7 @@ const ProductDetailPage = () => {
                   <img
                     src={img}
                     alt={`${product.name} ${index + 1}`}
-                    className="w-full h-24 object-cover transition-all duration-300 ease-out hover:opacity-90 hover:scale-[1.01]"
+                    className="w-full h-24 object-cover transition-all duration-300 ease-out hover:opacity-90 hover:scale-[1.02]"
                   />
               </Card>
             ))}
