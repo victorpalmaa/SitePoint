@@ -151,24 +151,24 @@ const ProductDetailPage = () => {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-6 py-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <main className={`mx-auto max-w-5xl ${product.id === 3 ? 'px-5 py-3' : 'px-6 py-4'}`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-2 ${product.id === 3 ? 'gap-6' : 'gap-8'}`}>
           {/* Product Images */}
           <div className="space-y-6">
             <Card className="group overflow-hidden shadow-2xl">
-              <div className={`relative w-full ${product.id === 3 ? 'h-80 lg:h-[460px]' : 'h-96 lg:h-[520px]'} transition-transform duration-700 ease-out group-hover:scale-[1.02]`}>
+              <div className={`relative w-full ${product.id === 3 ? 'h-72 lg:h-[420px]' : 'h-96 lg:h-[520px]'} transition-transform duration-700 ease-out group-hover:scale-[1.02]`}>
                 {prevImageIndex !== null && (
                   <img
                     src={productImages[prevImageIndex]}
                     alt={`${product.name} anterior`}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-out ${fadePrev ? 'opacity-100' : 'opacity-0'}`}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity transition-transform duration-300 ease-out ${fadePrev ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}
                   />
                 )}
                 <img
                   ref={mainImageRef}
                   src={productImages[selectedImageIndex]}
                   alt={product.name}
-                  className={`absolute inset-0 w-full h-full object-cover transition-transform transition-opacity duration-300 ease-out ${isSwitchingImage ? 'animate-in fade-in zoom-in-50' : 'opacity-100'} `}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-out opacity-100`}
                   key={selectedImageIndex}
                 />
               </div>
@@ -194,10 +194,10 @@ const ProductDetailPage = () => {
 
           <div className="space-y-8">
             <div>
-              <h1 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+              <h1 className={`${product.id === 3 ? 'text-3xl' : 'text-4xl'} font-bold text-slate-900 mb-4 tracking-tight`}>
                 {product.name}
               </h1>
-              <p className="text-3xl font-bold text-slate-900 mb-6">
+              <p className={`${product.id === 3 ? 'text-2xl' : 'text-3xl'} font-bold text-slate-900 mb-6`}>
                 R${product.price}
               </p>
               <p className="text-lg text-slate-600 leading-relaxed mb-8">
