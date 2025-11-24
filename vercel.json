@@ -4,9 +4,8 @@
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "build" }
+      "config": { "distDir": "frontend/build" }
     }
   ],
-  "outputDirectory": "frontend/build",
   "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
