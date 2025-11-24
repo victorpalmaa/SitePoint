@@ -172,12 +172,12 @@ const ProductDetailPage = () => {
         </div>
       </header>
 
-      <main className={`mx-auto max-w-5xl ${product.id === 3 ? 'px-5 py-3' : 'px-6 py-4'}`}>
-        <div className={`grid grid-cols-1 lg:grid-cols-2 ${product.id === 3 ? 'gap-6' : 'gap-8'}`}>
+      <main className={`mx-auto max-w-5xl px-6 py-4`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8`}>
           {/* Product Images */}
-          <div className="space-y-6 flex flex-col" ref={leftColRef} style={product.id === 3 && matchedHeight ? { height: matchedHeight } : undefined}>
+          <div className="space-y-8 flex flex-col" ref={leftColRef} style={product.id === 3 && matchedHeight ? { height: matchedHeight } : undefined}>
             <Card className="group overflow-hidden shadow-2xl">
-              <div className={`relative w-full ${product.id === 3 ? 'h-72 lg:h-[420px]' : 'h-96 lg:h-[520px]'} transition-transform duration-700 ease-out group-hover:scale-[1.02]`}>
+              <div className={`relative w-full h-96 lg:h-[520px] transition-transform duration-700 ease-out group-hover:scale-[1.02]`}>
                 {prevImageIndex !== null && (
                   <img
                     src={productImages[prevImageIndex]}
@@ -216,10 +216,10 @@ const ProductDetailPage = () => {
 
           <div className="space-y-8" ref={rightColRef}>
             <div>
-              <h1 className={`${product.id === 3 ? 'text-3xl' : 'text-4xl'} font-bold text-slate-900 mb-4 tracking-tight`}>
+              <h1 className={`text-4xl font-bold text-slate-900 mb-4 tracking-tight`}>
                 {product.name}
               </h1>
-              <p className={`${product.id === 3 ? 'text-2xl' : 'text-3xl'} font-bold text-slate-900 mb-6`}>
+              <p className={`text-3xl font-bold text-slate-900 mb-6`}>
                 R${product.price}
               </p>
               <p className="text-lg text-slate-600 leading-relaxed mb-8">
