@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import { X, ShoppingCart, Trash2, MinusCircle } from "lucide-react";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
 import { useCart } from "../context/CartContext";
 import { composeWhatsAppMessage } from "../lib/checkout";
+import { Input } from "./ui/input";
+import { useToast } from "../hooks/use-toast";
 
 const CartSidebar = () => {
   const { isOpen, closeCart, items, subtotal, removeItem, decrementItem, updateItemSize } = useCart();
+  const { toast } = useToast();
 
   const whatsappMessage = () => composeWhatsAppMessage(items, subtotal);
 
+  const ringMissingSize = useMemo(() => items.some(i => i.id === 4 && (!i.size || String(i.size).trim() === "")), [items]);
+
   const handleCheckout = () => {
+    if (ringMissingSize) {
+      toast({ title: "Informe o tamanho do anel", description: "Preencha o tamanho do Mineral Ring para finalizar.", duration: 3000 });
+      return;
+    }
     const url = `https://wa.me/5511916022085?text=${encodeURIComponent(whatsappMessage())}`;
     window.location.href = url;
   };
@@ -51,12 +59,13 @@ const CartSidebar = () => {
                         <Input
                           className="h-8 w-24"
                           placeholder="ex: 18"
-                          defaultValue={i.size ?? ""}
-                          onBlur={(e) => {
-                            const v = e.target.value.trim();
-                            if (v) updateItemSize(i.id, i.size ?? null, v);
-                          }}
+                          value={i.size ?? ""}
+                          onChange={(e) => updateItemSize(i.id, i.size ?? "", e.target.value)}
+                          required
+                          aria-invalid={!i.size || String(i.size).trim() === ""}
+                          aria-label="Tamanho do anel"
                         />
+                        {!i.size && <span className="text-xs text-rose-600">Obrigatório</span>}
                       </div>
                     ) : (
                       <p className="text-sm text-slate-600">{i.size ? `Tamanho: ${i.size}` : "Tamanho: Indicar na hora da compra"}</p>
@@ -84,7 +93,7 @@ const CartSidebar = () => {
               <span className="text-slate-700">Subtotal</span>
               <span className="text-slate-900 font-semibold">R$ {subtotal.toFixed(2)}</span>
             </div>
-            <Button className="w-full h-12 text-lg" onClick={handleCheckout}>Finalizar Compra</Button>
+            <Button className="w-full h-12 text-lg" onClick={handleCheckout} disabled={ringMissingSize}>Finalizar Compra</Button>
           </div>
         </div>
       </div>

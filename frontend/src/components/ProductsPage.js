@@ -22,7 +22,7 @@ const ProductsPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-stone-100">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/50 header-appear">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/50">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <Button
             variant="ghost"
@@ -49,7 +49,7 @@ const ProductsPage = () => {
       </header>
 
               <main className="container mx-auto px-6 py-2">
-                <div className="text-center mb-1 title-appear">
+                <div className="text-center mb-1">
           <div className="flex justify-center mb-2">
             <img 
               src="/assets/LOGOS/LOGO POINTLISM.png"

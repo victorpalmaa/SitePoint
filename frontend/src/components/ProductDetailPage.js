@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, ShoppingCart, Heart, Share2, Plus, Minus } from "lucide-react";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { mockData } from "../data/mock";
@@ -30,6 +31,7 @@ const ProductDetailPage = () => {
   const leftColRef = useRef(null);
   const rightColRef = useRef(null);
   const [matchedHeight, setMatchedHeight] = useState(null);
+  const [ringSize, setRingSize] = useState("");
 
   useEffect(() => {
     if (detailsOpen) {
@@ -57,8 +59,16 @@ const ProductDetailPage = () => {
   };
 
   const handleAddToCart = () => {
-    const sizeValue = product.id === 4 ? null : selectedSize;
-    addItem(product, sizeValue, quantity);
+    if (product.id === 4) {
+      const v = String(ringSize || "").trim();
+      if (!v) {
+        toast({ title: "Informe o tamanho do anel", description: "Preencha o tamanho para adicionar ao carrinho.", duration: 2500 });
+        return;
+      }
+      addItem(product, v, quantity);
+    } else {
+      addItem(product, selectedSize, quantity);
+    }
     animateFlyToCart();
     toast({
       title: "Adicionado ao carrinho!",
@@ -242,6 +252,22 @@ const ProductDetailPage = () => {
                       {size}
                     </Button>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {product.id === 4 && (
+              <div>
+                <div className="mb-2 text-slate-900 font-medium">Tamanho do anel</div>
+                <div className="flex items-center gap-3">
+                  <Input
+                    type="text"
+                    className="w-28 h-10"
+                    placeholder="ex: 18"
+                    aria-label="Tamanho do anel"
+                    value={ringSize}
+                    onChange={(e) => setRingSize(e.target.value)}
+                  />
                 </div>
               </div>
             )}
