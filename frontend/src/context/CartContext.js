@@ -29,6 +29,23 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  const updateItemSize = (id, prevSize, nextSize) => {
+    setItems(prev => {
+      const idx = prev.findIndex(i => i.id === id && i.size === prevSize);
+      if (idx < 0) return prev;
+      const existingIdx = prev.findIndex(i => i.id === id && i.size === nextSize);
+      if (existingIdx >= 0) {
+        const merged = [...prev];
+        merged[existingIdx] = { ...merged[existingIdx], quantity: merged[existingIdx].quantity + merged[idx].quantity };
+        merged.splice(idx, 1);
+        return merged;
+      }
+      const next = [...prev];
+      next[idx] = { ...next[idx], size: nextSize };
+      return next;
+    });
+  };
+
   const removeItem = (id, size) => {
     setItems(prev => prev.filter(i => !(i.id === id && i.size === size)));
   };
@@ -70,6 +87,7 @@ export const CartProvider = ({ children }) => {
     openCart,
     closeCart,
     cartIconRef,
+    updateItemSize,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

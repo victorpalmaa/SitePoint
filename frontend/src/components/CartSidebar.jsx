@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { X, ShoppingCart, Trash2, MinusCircle } from "lucide-react";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
 import { useCart } from "../context/CartContext";
 import { composeWhatsAppMessage } from "../lib/checkout";
 
 const CartSidebar = () => {
-  const { isOpen, closeCart, items, subtotal, removeItem, decrementItem } = useCart();
+  const { isOpen, closeCart, items, subtotal, removeItem, decrementItem, updateItemSize } = useCart();
 
   const whatsappMessage = () => composeWhatsAppMessage(items, subtotal);
 
@@ -44,7 +45,22 @@ const CartSidebar = () => {
                   <img src={i.image} alt={i.name} className="w-16 h-16 object-cover rounded" />
                   <div className="flex-1">
                     <p className="font-medium text-slate-900">{i.name}</p>
-                    <p className="text-sm text-slate-600">{i.size ? `Tamanho: ${i.size}` : "Tamanho: Indicar na hora da compra"}</p>
+                    {i.id === 4 ? (
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-slate-600">Tamanho:</span>
+                        <Input
+                          className="h-8 w-24"
+                          placeholder="ex: 18"
+                          defaultValue={i.size ?? ""}
+                          onBlur={(e) => {
+                            const v = e.target.value.trim();
+                            if (v) updateItemSize(i.id, i.size ?? null, v);
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <p className="text-sm text-slate-600">{i.size ? `Tamanho: ${i.size}` : "Tamanho: Indicar na hora da compra"}</p>
+                    )}
                     <p className="text-sm text-slate-600">Qtd: {i.quantity}</p>
                   </div>
                   <div className="flex flex-col items-end gap-2">
