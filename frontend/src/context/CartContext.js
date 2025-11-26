@@ -29,18 +29,26 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  const updateItemSize = (id, prevSize, nextSize) => {
-    setItems(prev => {
-      const idx = prev.findIndex(i => i.id === id && i.size === prevSize);
-      if (idx < 0) return prev;
-      const existingIdx = prev.findIndex(i => i.id === id && i.size === nextSize);
-      if (existingIdx >= 0) {
-        const merged = [...prev];
-        merged[existingIdx] = { ...merged[existingIdx], quantity: merged[existingIdx].quantity + merged[idx].quantity };
+  const updateItemSize = (id, prevSize, nextSizeRaw) => {
+    const normalize = (v) => {
+      if (v === undefined) return null;
+      if (v === null) return null;
+      const s = String(v).trim();
+      return s === "" ? null : s;
+    };
+    const nextSize = normalize(nextSizeRaw);
+    const prev = normalize(prevSize);
+    setItems(prevItems => {
+      const idx = prevItems.findIndex(i => i.id === id && i.size === prev);
+      if (idx < 0) return prevItems;
+      const dupIdx = prevItems.findIndex(i => i.id === id && i.size === nextSize);
+      if (dupIdx >= 0 && dupIdx !== idx) {
+        const merged = [...prevItems];
+        merged[dupIdx] = { ...merged[dupIdx], quantity: merged[dupIdx].quantity + merged[idx].quantity };
         merged.splice(idx, 1);
         return merged;
       }
-      const next = [...prev];
+      const next = [...prevItems];
       next[idx] = { ...next[idx], size: nextSize };
       return next;
     });

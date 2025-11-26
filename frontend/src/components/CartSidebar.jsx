@@ -48,7 +48,7 @@ const CartSidebar = () => {
               <p className="text-slate-600">Seu carrinho está vazio.</p>
             ) : (
               items.map((i, idx) => (
-                <Card key={`${i.id}-${i.size}-${idx}`} className="border">
+                <Card key={`${i.id}-${idx}`} className="border">
                 <CardContent className="p-4 flex gap-4 items-center">
                   <img src={i.image} alt={i.name} className="w-16 h-16 object-cover rounded" />
                   <div className="flex-1">
@@ -60,7 +60,7 @@ const CartSidebar = () => {
                           className="h-8 w-24"
                           placeholder="ex: 18"
                           value={i.size ?? ""}
-                          onChange={(e) => updateItemSize(i.id, i.size ?? "", e.target.value)}
+                          onChange={(e) => updateItemSize(i.id, i.size, e.target.value)}
                           required
                           aria-invalid={!i.size || String(i.size).trim() === ""}
                           aria-label="Tamanho do anel"
