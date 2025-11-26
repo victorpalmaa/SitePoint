@@ -1,7 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "yarn --cwd frontend install && yarn --cwd frontend build",
-  "outputDirectory": "frontend/build",
+  "installCommand": "yarn --cwd frontend install",
+  "buildCommand": "cd frontend && yarn build && rm -rf ../build && mkdir -p ../build && cp -R build/* ../build/",
+  "outputDirectory": "build",
   "routes": [
     { "handle": "filesystem" },
     { "src": "/.*", "dest": "/" }
