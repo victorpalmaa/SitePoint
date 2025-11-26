@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+# build output não ignorado para testes de deploy no Vercel
 
 # misc
 .DS_Store

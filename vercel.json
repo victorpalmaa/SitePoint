@@ -1,10 +1,6 @@
 {
-  "version": 2,
-  "installCommand": "yarn --cwd frontend install",
-  "buildCommand": "yarn --cwd frontend build",
+  "buildCommand": "cd frontend && yarn install && yarn build",
   "outputDirectory": "frontend/build",
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
-  ]
+  "installCommand": "echo 'Install handled in buildCommand'",
+  "framework": null
 }
