@@ -55,7 +55,7 @@ const CartSidebar = () => {
                     <p className="font-medium text-slate-900">{i.name}</p>
                     {i.id === 4 ? (
                       <div className="text-sm text-slate-600 flex items-center gap-2">
-                        <span>Tamanho:</span>
+                        <span className="h-8 flex items-center">Tamanho:</span>
                         <Input
                           className="h-8 w-20 sm:w-24 text-center text-sm"
                           placeholder="ex: 18"
@@ -71,7 +71,7 @@ const CartSidebar = () => {
                     )}
                     <p className="text-sm text-slate-600">Qtd: {i.quantity}</p>
                   </div>
-                  <div className={`flex flex-col items-end gap-2 shrink-0 ${i.id === 4 ? "mt-2" : ""}`}> 
+                  <div className={`flex flex-col items-end gap-2 shrink-0 ${i.id === 4 ? "mt-3" : ""}`}> 
                     <div className="text-right font-semibold whitespace-nowrap text-sm sm:text-base">R$ {(i.price * i.quantity).toFixed(2)}</div>
                     <div className="flex items-center gap-1">
                       <Button variant="ghost" size="sm" className="p-1 h-8" onClick={() => decrementItem(i.id, i.size)} aria-label="Diminuir">
