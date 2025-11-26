@@ -33,6 +33,10 @@ const ProductDetailPage = () => {
   const [isLarge, setIsLarge] = useState(false);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [id]);
+
+  useEffect(() => {
     if (detailsOpen) {
       const t = setTimeout(() => setDetailsVisible(true), 10);
       return () => clearTimeout(t);

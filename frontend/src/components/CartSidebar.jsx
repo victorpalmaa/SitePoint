@@ -54,18 +54,21 @@ const CartSidebar = () => {
                   <div className="flex-1">
                     <p className="font-medium text-slate-900">{i.name}</p>
                     {i.id === 4 ? (
-                      <div className="flex flex-col gap-1">
-                        <span className="text-sm text-slate-600">Tamanho</span>
-                        <Input
-                          className="h-8 w-24"
-                          placeholder="ex: 18"
-                          value={i.size ?? ""}
-                          onChange={(e) => updateItemSize(i.id, i.size, e.target.value)}
-                          required
-                          aria-invalid={!i.size || String(i.size).trim() === ""}
-                          aria-label="Tamanho do anel"
-                        />
-                        {!i.size && <span className="text-xs text-rose-600">Obrigatório</span>}
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-slate-600">Tamanho:</span>
+                        <div className="flex flex-col items-center w-24">
+                          <Input
+                            className="h-8 w-24 text-center"
+                            placeholder="ex: 18"
+                            value={i.size ?? ""}
+                            onChange={(e) => updateItemSize(i.id, i.size, e.target.value)}
+                            required
+                            aria-invalid={!i.size || String(i.size).trim() === ""}
+                            aria-label="Tamanho do anel"
+                          />
+                          {!i.size && <span className="text-xs text-rose-600">Obrigatório</span>}
+                        </div>
+                        <div className="ml-auto text-sm font-semibold">R$ {(i.price * i.quantity).toFixed(2)}</div>
                       </div>
                     ) : (
                       <p className="text-sm text-slate-600">{i.size ? `Tamanho: ${i.size}` : "Tamanho: Indicar na hora da compra"}</p>
@@ -73,7 +76,7 @@ const CartSidebar = () => {
                     <p className="text-sm text-slate-600">Qtd: {i.quantity}</p>
                   </div>
                   <div className="flex flex-col items-end gap-2">
-                    <div className="text-right font-semibold">R$ {(i.price * i.quantity).toFixed(2)}</div>
+                    {i.id !== 4 && <div className="text-right font-semibold">R$ {(i.price * i.quantity).toFixed(2)}</div>}
                     <div className="flex items-center gap-1">
                       <Button variant="ghost" size="sm" className="p-1 h-8" onClick={() => decrementItem(i.id, i.size)} aria-label="Diminuir">
                         <MinusCircle className="w-4 h-4 text-slate-600" />

@@ -54,7 +54,7 @@ const ProductsPage = () => {
             <img 
               src="/assets/LOGOS/LOGO POINTLISM.png"
               alt="POINTLISM"
-              className="w-full h-auto object-contain px-4 max-w-[35vw] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px]"
+              className="w-full h-auto object-contain px-4 max-w-[80vw] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px]"
             />
           </div>
         </div>
