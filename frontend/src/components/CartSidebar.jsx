@@ -54,11 +54,11 @@ const CartSidebar = () => {
                   <div className="flex-1">
                     <p className="font-medium text-slate-900">{i.name}</p>
                     {i.id === 4 ? (
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-slate-600">Tamanho:</span>
-                        <div className="flex flex-col items-center w-24">
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs sm:text-sm text-slate-600">Tamanho:</span>
+                        <div className="flex flex-col items-center w-20 sm:w-24 mt-1">
                           <Input
-                            className="h-8 w-24 text-center"
+                            className="h-8 w-20 sm:w-24 text-center text-sm"
                             placeholder="ex: 18"
                             value={i.size ?? ""}
                             onChange={(e) => updateItemSize(i.id, i.size, e.target.value)}
@@ -66,7 +66,7 @@ const CartSidebar = () => {
                             aria-invalid={!i.size || String(i.size).trim() === ""}
                             aria-label="Tamanho do anel"
                           />
-                          {!i.size && <span className="text-xs text-rose-600">Obrigatório</span>}
+                          {!i.size && <span className="mt-1 text-[11px] sm:text-xs text-rose-600">Obrigatório</span>}
                         </div>
                       </div>
                     ) : (
@@ -74,8 +74,8 @@ const CartSidebar = () => {
                     )}
                     <p className="text-sm text-slate-600">Qtd: {i.quantity}</p>
                   </div>
-                  <div className={`flex flex-col ${i.id === 4 ? "items-start" : "items-end"} gap-2`}>
-                    <div className={`${i.id === 4 ? "text-left" : "text-right"} font-semibold`}>R$ {(i.price * i.quantity).toFixed(2)}</div>
+                  <div className={`flex flex-col ${i.id === 4 ? "items-start" : "items-end"} gap-2 shrink-0`}>
+                    <div className={`${i.id === 4 ? "text-left" : "text-right"} font-semibold whitespace-nowrap text-sm sm:text-base`}>R$ {(i.price * i.quantity).toFixed(2)}</div>
                     <div className="flex items-center gap-1">
                       <Button variant="ghost" size="sm" className="p-1 h-8" onClick={() => decrementItem(i.id, i.size)} aria-label="Diminuir">
                         <MinusCircle className="w-4 h-4 text-slate-600" />
