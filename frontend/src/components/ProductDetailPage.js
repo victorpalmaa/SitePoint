@@ -197,7 +197,7 @@ const ProductDetailPage = () => {
             </Card>
             
           {/* Additional Images */}
-          <div className="grid grid-cols-4 gap-3 mt-auto">
+          <div className="grid grid-cols-4 gap-3 lg:mt-auto">
             {productImages.map((img, index) => (
               <Card 
                 key={index} 

@@ -49,12 +49,12 @@ const ProductsPage = () => {
       </header>
 
               <main className="container mx-auto px-6 py-2">
-                <div className="text-center mb-1">
+        <div className="text-center mb-1">
           <div className="flex justify-center mb-2">
             <img 
               src="/assets/LOGOS/LOGO POINTLISM.png"
               alt="POINTLISM"
-              className="max-w-md h-auto object-contain"
+              className="w-full max-w-[480px] sm:max-w-[640px] h-auto object-contain px-4"
             />
           </div>
         </div>
