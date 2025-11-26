@@ -54,20 +54,17 @@ const CartSidebar = () => {
                   <div className="flex-1">
                     <p className="font-medium text-slate-900">{i.name}</p>
                     {i.id === 4 ? (
-                      <div className="flex flex-col">
-                        <div className="flex items-center gap-1">
-                          <span className="text-xs sm:text-sm text-slate-600">Tamanho:</span>
-                          <Input
-                            className="h-8 w-20 sm:w-24 text-center text-sm"
-                            placeholder="ex: 18"
-                            value={i.size ?? ""}
-                            onChange={(e) => updateItemSize(i.id, i.size, e.target.value)}
-                            required
-                            aria-invalid={!i.size || String(i.size).trim() === ""}
-                            aria-label="Tamanho do anel"
-                          />
-                        </div>
-                        {!i.size && <div className="w-20 sm:w-24 text-center mt-1"><span className="text-[11px] sm:text-xs text-rose-600">Obrigatório</span></div>}
+                      <div className="text-sm text-slate-600 flex items-center gap-2">
+                        <span>Tamanho:</span>
+                        <Input
+                          className="h-8 w-20 sm:w-24 text-center text-sm"
+                          placeholder="ex: 18"
+                          value={i.size ?? ""}
+                          onChange={(e) => updateItemSize(i.id, i.size, e.target.value)}
+                          required
+                          aria-invalid={!i.size || String(i.size).trim() === ""}
+                          aria-label="Tamanho do anel"
+                        />
                       </div>
                     ) : (
                       <p className="text-sm text-slate-600">{i.size ? `Tamanho: ${i.size}` : "Tamanho: Indicar na hora da compra"}</p>
