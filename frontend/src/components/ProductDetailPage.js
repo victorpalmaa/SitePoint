@@ -30,6 +30,7 @@ const ProductDetailPage = () => {
   const leftColRef = useRef(null);
   const rightColRef = useRef(null);
   const [matchedHeight, setMatchedHeight] = useState(null);
+  const [isLarge, setIsLarge] = useState(false);
 
   useEffect(() => {
     if (detailsOpen) {
@@ -84,7 +85,15 @@ const ProductDetailPage = () => {
   const sizeGuideImage = product.sizeGuideImage || null;
 
   useEffect(() => {
-    if (product && product.id === 3) {
+    const mql = typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)') : null;
+    const onChange = () => setIsLarge(mql ? mql.matches : false);
+    onChange();
+    mql && mql.addEventListener('change', onChange);
+    return () => mql && mql.removeEventListener('change', onChange);
+  }, []);
+
+  useEffect(() => {
+    if (product && product.id === 3 && isLarge) {
       const updateHeights = () => {
         const r = rightColRef.current;
         if (r) {
@@ -94,8 +103,10 @@ const ProductDetailPage = () => {
       updateHeights();
       window.addEventListener("resize", updateHeights);
       return () => window.removeEventListener("resize", updateHeights);
+    } else {
+      setMatchedHeight(null);
     }
-  }, [product, selectedImageIndex, quantity, selectedSize, detailsOpen, sizeGuideOpen]);
+  }, [product, selectedImageIndex, quantity, selectedSize, detailsOpen, sizeGuideOpen, isLarge]);
 
   const switchImage = (index) => {
     if (index === selectedImageIndex) return;
@@ -175,7 +186,7 @@ const ProductDetailPage = () => {
       <main className={`mx-auto max-w-5xl px-6 py-4`}>
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8`}>
           {/* Product Images */}
-          <div className="space-y-8 flex flex-col" ref={leftColRef} style={product.id === 3 && matchedHeight ? { height: matchedHeight } : undefined}>
+          <div className="space-y-8 flex flex-col" ref={leftColRef} style={product.id === 3 && isLarge && matchedHeight ? { height: matchedHeight } : undefined}>
             <Card className="group overflow-hidden shadow-2xl">
               <div className={`relative w-full h-96 lg:h-[520px] transition-transform duration-700 ease-out group-hover:scale-[1.02]`}>
                 {prevImageIndex !== null && (
