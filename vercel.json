@@ -1,7 +1,7 @@
 {
   "version": 2,
   "installCommand": "yarn --cwd frontend install",
-  "buildCommand": "yarn --cwd frontend build && rm -rf build && ([ -d frontend/build ] && cp -R frontend/build ./build || cp -R build ./build)",
+  "buildCommand": "yarn --cwd frontend build && rm -rf build && cp -R frontend/build ./build",
   "outputDirectory": "build",
   "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
