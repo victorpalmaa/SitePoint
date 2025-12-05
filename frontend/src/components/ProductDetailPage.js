@@ -62,6 +62,14 @@ const ProductDetailPage = () => {
   };
 
   const handleAddToCart = () => {
+    if ((product.id === 1 || product.id === 2 || product.id === 3) && selectedSize === "P") {
+      toast({
+        title: "Esgotado",
+        description: "Tamanho P está esgotado para este produto.",
+        duration: 2500,
+      });
+      return;
+    }
     const sizeValue = product.id === 4 ? null : selectedSize;
     addItem(product, sizeValue, quantity);
     animateFlyToCart();
