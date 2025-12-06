@@ -58,8 +58,8 @@ export const mockData = {
     {
       id: 4,
       name: "Mineral Ring",
-      description: "",
-      fullDescription: "Um anel de prata artesanal único inspirado em formações minerais naturais. Com um formato orgânico que reflete uma conexão profunda com a natureza.",
+      description: "Este anel é uma edição limitada e foi desenvolvido e fabricado de maneira 100% artesanal, em Prata 925, e cada unidade é produzida sob medida para você. Devido a este processo exclusivo de fabricação artesanal, o prazo estimado para a entrega é de aproximadamente 20 dias úteis.",
+      fullDescription: "Este anel é uma edição limitada e foi desenvolvido e fabricado de maneira 100% artesanal, em Prata 925, e cada unidade é produzida sob medida para você. Devido a este processo exclusivo de fabricação artesanal, o prazo estimado para a entrega é de aproximadamente 20 dias úteis.",
       price: 150,
       image: "/assets/ANEL/IMG_1.JPG",
       additionalImages: [
