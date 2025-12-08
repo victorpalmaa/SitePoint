@@ -8,7 +8,10 @@ export const CartProvider = ({ children }) => {
   const cartIconRef = useRef(null);
 
   const addItem = (product, size, quantity = 1) => {
-    if ((product?.id === 1 || product?.id === 2 || product?.id === 3) && size === "P") {
+    if (
+      ((product?.id === 1 || product?.id === 2 || product?.id === 3) && size === "P") ||
+      (product?.id === 3 && size === "G")
+    ) {
       return;
     }
     setItems(prev => {
